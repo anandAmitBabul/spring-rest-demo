@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.javamit.springdemo</groupId>
+	<artifactId>spring-rest-demo</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+
+		<!-- Add Spring MVC and REST support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>5.0.5.RELEASE</version>
+		</dependency>
+		
+		<!-- Add Jackson for JSON converters -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+
+		<!-- Add Servlet support for 
+			 Spring's AbstractAnnotationConfigDispatcherServletInitializer -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+				 
+	</dependencies>
+
+	<!-- Support for Maven WAR Plugin -->
+
+	<build>
+		<finalName>spring-rest-demo</finalName>
+		<!-- plugin for heroku -->
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-war-plugin</artifactId>
+				    <version>3.2.0</version>
+				    <configuration>
+				    	<jdkVersion>1.8</jdkVersion>
+			            <failOnMissingWebXml>false</failOnMissingWebXml>
+			            <configvars>
+						  <my_var>somevalue</my_var>
+						  <java_opts>-xss512k -xx:+usecompressedoops</java_opts>
+						</configvars>
+		            </configuration>
+				</plugin>						
+			
+		    	<plugin>
+		        	<groupId>com.heroku.sdk</groupId>
+		        	<artifactId>heroku-maven-plugin</artifactId>
+		        	<version>2.0.6</version>
+		        	<configuration>
+		        		 <processTypes>
+						     <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
+						 </processTypes>
+		        	</configuration>
+		      	</plugin>
+		    </plugins>
+		</pluginManagement>
+	</build>
+	<profiles>
+	  <profile>
+	    <id>test</id>
+	    <build>
+	      <plugins>
+	        <plugin>
+	          <groupId>io.javamit.springdemo</groupId>
+	          <artifactId>spring-rest-demo</artifactId>
+	          <configuration>
+	            <appName>spring-rest-demo-test</appName>
+	          </configuration>
+	        </plugin>
+	      </plugins>
+	    </build>
+	  </profile>
+	  <profile>
+	    <id>prod</id>
+	    <build>
+	      <plugins>
+	        <plugin>
+	          <groupId>io.javamit.springdemo</groupId>
+	          <artifactId>spring-rest-demo</artifactId>
+	          <configuration>
+	            <appName>spring-rest-demo-prod</appName>
+	          </configuration>
+	        </plugin>
+	      </plugins>
+	    </build>
+	  </profile>
+	</profiles>
+</project>
