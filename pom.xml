@@ -37,9 +37,9 @@
 		</dependency>
 		
 		<dependency>
-		    	<groupId>com.github.anandAmitBabul</groupId>
-		    	<artifactId>spring-rest-demo</artifactId>
-		    	<version>1.1.0</version>
+			<groupId>com.github.anandAmitBabul</groupId>
+			<artifactId>spring-rest-demo</artifactId>
+			<version>1.1.0</version>
 		</dependency>
 				 
 	</dependencies>
@@ -51,62 +51,35 @@
 		<!-- plugin for heroku -->
 		
 		<pluginManagement>
-			<plugins>
-				<plugin>
-				    <groupId>org.apache.maven.plugins</groupId>
-				    <artifactId>maven-war-plugin</artifactId>
-				    <version>3.2.0</version>
-				    <configuration>
-				    	<jdkVersion>1.8</jdkVersion>
-			            <failOnMissingWebXml>false</failOnMissingWebXml>
-			            <configvars>
-						  <my_var>somevalue</my_var>
-						  <java_opts>-xss512k -xx:+usecompressedoops</java_opts>
-						</configvars>
+		     <plugins>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-war-plugin</artifactId>
+			    <version>3.2.0</version>
+			    <configuration>
+				<jdkVersion>1.8</jdkVersion>
+			        <failOnMissingWebXml>false</failOnMissingWebXml>
 		            </configuration>
-				</plugin>						
-			
-		    	<plugin>
-		        	<groupId>com.heroku.sdk</groupId>
-		        	<artifactId>heroku-maven-plugin</artifactId>
-		        	<version>2.0.6</version>
-		        	<configuration>
-		        		 <processTypes>
-						     <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
-						 </processTypes>
-		        	</configuration>
-		      	</plugin>
-		    </plugins>
-		</pluginManagement>
-	</build>
-	<profiles>
-	  <profile>
-	    <id>test</id>
-	    <build>
-	      <plugins>
-	        <plugin>
-	          <groupId>io.javamit.springdemo</groupId>
-	          <artifactId>spring-rest-demo</artifactId>
-	          <configuration>
-	            <appName>spring-rest-demo-test</appName>
-	          </configuration>
-	        </plugin>
-	      </plugins>
-	    </build>
-	  </profile>
-	  <profile>
-	    <id>prod</id>
-	    <build>
-	      <plugins>
-	        <plugin>
-	          <groupId>io.javamit.springdemo</groupId>
-	          <artifactId>spring-rest-demo</artifactId>
-	          <configuration>
-	            <appName>spring-rest-demo-prod</appName>
-	          </configuration>
-	        </plugin>
-	      </plugins>
-	    </build>
-	  </profile>
-	</profiles>
+			    <executions>
+				    <execution>
+					<phase>package</phase>
+					<goals>
+					    <goal>copy</goal>
+					</goals>
+					<configuration>
+					    <artifactItems>
+						<artifactItem>
+						    <groupId>com.github.anandAmitBabul</groupId>
+						    <artifactId>spring-rest-demo</artifactId>
+						    <version>1.1.0</version>
+						    <destFileName>spring-rest-demo.jar</destFileName>
+						</artifactItem>
+					    </artifactItems>
+					</configuration>
+				    </execution>
+				</executions>
+			 </plugin>						
+		      </plugins>
+		  </pluginManagement>
+	     </build>
 </project>
