@@ -35,12 +35,6 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.github.anandAmitBabul</groupId>
-			<artifactId>spring-rest-demo</artifactId>
-			<version>1.1.0</version>
-		</dependency>
 				 
 	</dependencies>
 
@@ -51,35 +45,17 @@
 		<!-- plugin for heroku -->
 		
 		<pluginManagement>
-		     <plugins>
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-war-plugin</artifactId>
-			    <version>3.2.0</version>
-			    <configuration>
-				<jdkVersion>1.8</jdkVersion>
-			        <failOnMissingWebXml>false</failOnMissingWebXml>
+			<plugins>
+				<plugin>
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-war-plugin</artifactId>
+				    <version>3.2.0</version>
+				    <configuration>
+				    	<jdkVersion>1.8</jdkVersion>
+			            <failOnMissingWebXml>false</failOnMissingWebXml>
 		            </configuration>
-			    <executions>
-				    <execution>
-					<phase>package</phase>
-					    <goals>
-						    <goal>copy</goal>
-						</goals>
-					<configuration>
-					    <artifactItems>
-						<artifactItem>
-						    <groupId>com.github.anandAmitBabul</groupId>
-						    <artifactId>spring-rest-demo</artifactId>
-						    <version>1.1.0</version>
-						    <destFileName>spring-rest-demo.jar</destFileName>
-						</artifactItem>
-					    </artifactItems>
-					</configuration>
-				    </execution>
-				</executions>
-			 </plugin>						
-		      </plugins>
-		  </pluginManagement>
-	     </build>
+				</plugin>
+		    </plugins>
+		</pluginManagement>
+	</build>
 </project>
